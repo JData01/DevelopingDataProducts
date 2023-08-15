@@ -1,0 +1,39 @@
+---
+title: "MAUI wildfire Leaflet map"
+author: "J"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## MAUI wildfires
+
+Recently, devastating wildfires on the Hawaiian island claimed the lives of at least 99 people, making it the deadliest U.S. wildfire in more than a century.
+
+<https://www.cnn.com/us/live-news/hawaii-maui-wildfires-08-14-23/index.html>
+
+In their horror, I decided to present a map with the approximate location of the three wildfires on the island.
+
+
+```{r map}
+library(leaflet)
+# create df with info for markers
+location_name <- c("West Maui wildfire", "South Maui wildfire", "Upcountry Maui wildfire")
+latitude <- c(20.8873692, 20.7722261, 20.8197917)
+longitude <- c(-156.6799099, -156.3973696, -156.2992605)
+
+df_info <- data.frame(location_name, latitude ,longitude)
+
+# add leaflet map to R markdown
+leaflet() %>% addTiles() %>%
+  addMarkers(lat = df_info$latitude, lng = df_info$longitude,
+             label = df_info$location_name,
+             labelOptions = labelOptions(noHide = TRUE, textsize = "24px", textOnly = TRUE))
+
+
+
+```
+
